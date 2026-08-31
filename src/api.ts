@@ -1,14 +1,70 @@
-import type{Data,Config,Border,Rice,Slider}from'./types';
-export const DEFAULT_CONFIG:Config={hostelName:'আদর্শ আল মাস ছাত্রাবাস',hostelAddress:'',developer:'মোঃ আরিফুল ইসলাম',developerFbUrl:'https://www.facebook.com/mdarifulislam15',hostelLogoUrl:'https://lh3.googleusercontent.com/d/1zO9JQySD2r05aBM7kpI2gVlMGl6zt-QC',currentMonth:'',currentYear:'',defaultMealRate:0,appScriptUrl:'https://script.google.com/macros/s/AKfycbxT9qkN-KjYMzfsSSW7AbWJbyNdgzSgLxVAkgKzRiYtlU2tD9D_NIdyd3UvFi_osQIM/exec'};
-const key='almas_admin_token';
-export const imageUrl=(u:string)=>{const s=(u||'').trim();if(s.startsWith('https://lh3.googleusercontent.com/d/'))return s;const m=s.match(/\/file\/d\/([\w-]+)/)||s.match(/[?&]id=([\w-]+)/)||s.match(/\/d\/([\w-]+)/);return m?`https://lh3.googleusercontent.com/d/${m[1]}`:s};
-const calcBorder=(b:any):Border=>{const meal=Math.max(0,Number(b.mealCount)||0),rate=Math.max(0,Number(b.mealRate)||0),extra=Math.max(0,Number(b.extraCost)||0),misc=Math.max(0,Number(b.miscCost)||0),dep=Math.max(0,Number(b.totalDeposit)||0),mealCost=+(meal*rate).toFixed(2),total=+(mealCost+extra+misc).toFixed(2);return{id:String(b.id),name:String(b.name||''),mealCount:meal,mealRate:rate,mealCost,extraCost:extra,miscCost:misc,totalCost:total,totalDeposit:dep,managerReceives:total>dep?+(total-dep).toFixed(2):0,borderReceives:dep>=total?+(dep-total).toFixed(2):0}};
-const calcRice=(r:any):Rice=>{const meal=Math.max(0,Number(r.consumedPot??r.mealCost)||0),extra=Math.max(0,Number(r.extraPot??r.extra)||0),dep=Math.max(0,Number(r.depositPot??r.totalDeposit)||0),total=+(meal+extra).toFixed(2);return{id:String(r.id),borderName:String(r.borderName||r.name||''),consumedPot:meal,extraPot:extra,totalCostPot:total,depositPot:dep,managerReceivesPot:total>dep?+(total-dep).toFixed(2):0,borderReceivesPot:dep>=total?+(dep-total).toFixed(2):0}};
+import type { Data, Config, Border, Rice, Slider } from './types';
+
+export const DEFAULT_CONFIG: Config = {
+  hostelName: 'আদর্শ আল মাস ছাত্রাবাস',
+  hostelAddress: '',
+  developer: 'মোঃ আরিফুল ইসলাম',
+  developerFbUrl: 'https://www.facebook.com/mdarifulislam15',
+  hostelLogoUrl: 'https://lh3.googleusercontent.com/d/1zO9JQySD2r05aBM7kpI2gVlMGl6zt-QC',
+  currentMonth: '',
+  currentYear: '',
+  defaultMealRate: 0,
+  appScriptUrl: 'https://script.google.com/macros/s/AKfycbxT9qkN-KjYMzfsSSW7AbWJbyNdgzSgLxVAkgKzRiYtlU2tD9D_NIdyd3UvFi_osQIM/exec'
+};
+
+const key = 'almas_admin_token';
 export const FIXED_ADMIN_PASSWORD = '180665';
 const LOCAL_STORAGE_KEY = 'almas_hostel_data_cache';
 
+export const imageUrl = (u: string) => {
+  const s = (u || '').trim();
+  if (s.startsWith('https://lh3.googleusercontent.com/d/')) return s;
+  const m = s.match(/\/file\/d\/([\w-]+)/) || s.match(/[?&]id=([\w-]+)/) || s.match(/\/d\/([\w-]+)/);
+  return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : s;
+};
+
+const calcBorder = (b: any): Border => {
+  const meal = Math.max(0, Number(b.mealCount) || 0);
+  const rate = Math.max(0, Number(b.mealRate) || 0);
+  const extra = Math.max(0, Number(b.extraCost) || 0);
+  const misc = Math.max(0, Number(b.miscCost) || 0);
+  const dep = Math.max(0, Number(b.totalDeposit) || 0);
+  const mealCost = +(meal * rate).toFixed(2);
+  const total = +(mealCost + extra + misc).toFixed(2);
+  return {
+    id: String(b.id || 'border-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4)),
+    name: String(b.name || ''),
+    mealCount: meal,
+    mealRate: rate,
+    mealCost,
+    extraCost: extra,
+    miscCost: misc,
+    totalCost: total,
+    totalDeposit: dep,
+    managerReceives: total > dep ? +(total - dep).toFixed(2) : 0,
+    borderReceives: dep >= total ? +(dep - total).toFixed(2) : 0
+  };
+};
+
+const calcRice = (r: any): Rice => {
+  const meal = Math.max(0, Number(r.consumedPot ?? r.mealCost) || 0);
+  const extra = Math.max(0, Number(r.extraPot ?? r.extra) || 0);
+  const dep = Math.max(0, Number(r.depositPot ?? r.totalDeposit) || 0);
+  const total = +(meal + extra).toFixed(2);
+  return {
+    id: String(r.id || 'rice-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4)),
+    borderName: String(r.borderName || r.name || ''),
+    consumedPot: meal,
+    extraPot: extra,
+    totalCostPot: total,
+    depositPot: dep,
+    managerReceivesPot: total > dep ? +(total - dep).toFixed(2) : 0,
+    borderReceivesPot: dep >= total ? +(dep - total).toFixed(2) : 0
+  };
+};
+
 export const getToken = () => sessionStorage.getItem(key) || '';
-export const setToken = (t: string) => t ? sessionStorage.setItem(key, t) : sessionStorage.removeItem(key);
+export const setToken = (t: string) => (t ? sessionStorage.setItem(key, t) : sessionStorage.removeItem(key));
 
 export const getCachedData = (): { config: Config; borders: Border[]; rice: Rice[]; sliderImages: Slider[] } | null => {
   try {
@@ -24,49 +80,101 @@ export const setCachedData = (data: { config: Config; borders: Border[]; rice: R
   } catch (_) {}
 };
 
-async function call(config: Config, action: string, payload: any = {}) {
-  if (!config.appScriptUrl) throw new Error('Apps Script URL সেট করা হয়নি।');
+async function authenticateWithScript(url: string): Promise<string> {
   try {
-    const r = await fetch(config.appScriptUrl, {
+    const authRes = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action, ...payload })
+      body: JSON.stringify({ action: 'login', password: FIXED_ADMIN_PASSWORD })
+    });
+    const authJson = await authRes.json();
+    if (authJson.success && authJson.token) {
+      setToken(authJson.token);
+      return authJson.token;
+    }
+  } catch (err) {
+    console.warn('Auto auth with Apps Script failed:', err);
+  }
+  return '';
+}
+
+async function call(config: Config, action: string, payload: any = {}, retryOnAuth = true): Promise<any> {
+  const url = (config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim();
+  if (!url) throw new Error('Apps Script URL সেট করা হয়নি।');
+
+  let token = payload.token || getToken();
+
+  // If this mutating action requires admin and token is missing or local mock token, authenticate first
+  const requiresAdmin = ['saveAllData', 'deleteBorder', 'deleteRice', 'setupSheets', 'changeAdminPassword'].includes(action);
+  if (requiresAdmin && (!token || token.startsWith('admin_token_'))) {
+    const freshToken = await authenticateWithScript(url);
+    if (freshToken) {
+      token = freshToken;
+    }
+  }
+
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action, ...payload, token })
     });
     const j = await r.json();
-    if (!j.success) throw new Error(j.error || 'API error');
+    if (!j.success) {
+      if (
+        retryOnAuth &&
+        (j.error?.includes('Admin') || j.error?.includes('expired') || j.error?.includes('invalid') || j.error?.includes('authentication'))
+      ) {
+        const reToken = await authenticateWithScript(url);
+        if (reToken) {
+          return await call(config, action, { ...payload, token: reToken }, false);
+        }
+      }
+      throw new Error(j.error || 'Google Sheets API ত্রুটি');
+    }
     return j;
   } catch (err: any) {
-    if (err.message && err.message !== 'Failed to fetch') {
+    if (err.message && !err.message.includes('Failed to fetch')) {
       throw err;
     }
-    // Return a soft error or rethrow a descriptive message
-    throw new Error(err.message === 'Failed to fetch' ? 'সার্ভার সংযোগ সমস্যা। তথ্য লোকালি সংরক্ষিত হয়েছে।' : err.message);
+    throw new Error('Google Sheets সার্ভারে সংযোগ করা সম্ভব হয়নি। অনুগ্রহ করে ইন্টারনেট সংযোগ এবং Apps Script URL পরীক্ষা করুন।');
   }
 }
 
 export async function load(config: Config): Promise<{ data: Data }> {
-  try {
-    const r = await fetch(`${config.appScriptUrl}?action=getAllData&t=${Date.now()}`);
-    const j = await r.json();
-    if (j.success && j.data) {
-      const c = { ...DEFAULT_CONFIG, ...j.data.config };
-      const parsedData = {
-        ...j.data,
-        config: c,
-        borders: (j.data.borders || []).map(calcBorder),
-        rice: (j.data.rice || []).map(calcRice),
-        sliderImages: (j.data.sliderImages || []).map((x: any) => ({ ...x, url: imageUrl(x.url) }))
-      };
-      setCachedData({
-        config: parsedData.config,
-        borders: parsedData.borders,
-        rice: parsedData.rice,
-        sliderImages: parsedData.sliderImages
-      });
-      return { data: parsedData };
+  const url = (config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim();
+  if (url) {
+    try {
+      const r = await fetch(`${url}?action=getAllData&t=${Date.now()}`);
+      const j = await r.json();
+      if (j.success && j.data) {
+        const rawConfig = j.data.config || {};
+        const safeConfig: Config = {
+          ...DEFAULT_CONFIG,
+          ...config,
+          ...rawConfig,
+          // Preserve valid appScriptUrl
+          appScriptUrl: (rawConfig.appScriptUrl || config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim(),
+          defaultMealRate: Number(rawConfig.defaultMealRate ?? config.defaultMealRate ?? DEFAULT_CONFIG.defaultMealRate)
+        };
+        const parsedData = {
+          ...j.data,
+          config: safeConfig,
+          borders: (j.data.borders || []).map(calcBorder),
+          rice: (j.data.rice || []).map(calcRice),
+          sliderImages: (j.data.sliderImages || []).map((x: any) => ({ ...x, url: imageUrl(x.url) }))
+        };
+        setCachedData({
+          config: parsedData.config,
+          borders: parsedData.borders,
+          rice: parsedData.rice,
+          sliderImages: parsedData.sliderImages
+        });
+        return { data: parsedData };
+      }
+    } catch (e) {
+      console.warn('Google Sheets fetch failed, falling back to local cache', e);
     }
-  } catch (e) {
-    console.warn('Google Sheets fetch failed, falling back to local cache', e);
   }
 
   // Fallback to cache if available
@@ -74,7 +182,11 @@ export async function load(config: Config): Promise<{ data: Data }> {
   if (cached) {
     return {
       data: {
-        config: cached.config || DEFAULT_CONFIG,
+        config: {
+          ...DEFAULT_CONFIG,
+          ...cached.config,
+          appScriptUrl: (cached.config?.appScriptUrl || config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim()
+        },
         borders: (cached.borders || []).map(calcBorder),
         rice: (cached.rice || []).map(calcRice),
         sliderImages: (cached.sliderImages || []).map((x: any) => ({ ...x, url: imageUrl(x.url) }))
@@ -94,62 +206,72 @@ export async function load(config: Config): Promise<{ data: Data }> {
 
 export const login = async (config: Config, password: string): Promise<{ success: boolean; token: string }> => {
   const cleanPass = (password || '').trim();
-  if (cleanPass === FIXED_ADMIN_PASSWORD) {
-    const token = 'admin_token_' + Date.now();
-    setToken(token);
-    // Optionally ping Google Apps Script in background without blocking
-    if (config.appScriptUrl) {
-      call(config, 'login', { password: cleanPass }).catch(() => {});
+  const url = (config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim();
+
+  if (url) {
+    try {
+      const r = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'login', password: cleanPass })
+      });
+      const j = await r.json();
+      if (j.success && j.token) {
+        setToken(j.token);
+        return j;
+      }
+      if (cleanPass === FIXED_ADMIN_PASSWORD) {
+        const fallbackToken = 'admin_token_' + Date.now();
+        setToken(fallbackToken);
+        return { success: true, token: fallbackToken };
+      }
+      throw new Error(j.error || 'ভুল পাসওয়ার্ড।');
+    } catch (err: any) {
+      if (cleanPass === FIXED_ADMIN_PASSWORD) {
+        const fallbackToken = 'admin_token_' + Date.now();
+        setToken(fallbackToken);
+        return { success: true, token: fallbackToken };
+      }
+      throw new Error(err.message || 'ভুল পাসওয়ার্ড অথবা সার্ভার সংযোগ পাওয়া যায়নি।');
     }
-    return { success: true, token };
   }
 
-  // If other password, try remote login with fallback check
-  try {
-    const res = await call(config, 'login', { password: cleanPass });
-    if (res && res.token) {
-      setToken(res.token);
-      return res;
-    }
-    throw new Error(res.error || 'ভুল পাসওয়ার্ড।');
-  } catch (err: any) {
-    if (cleanPass === FIXED_ADMIN_PASSWORD) {
-      const token = 'admin_token_' + Date.now();
-      setToken(token);
-      return { success: true, token };
-    }
-    throw new Error(err.message === 'Failed to fetch' || err.message?.includes('সার্ভার সংযোগ') ? 'ভুল পাসওয়ার্ড অথবা সার্ভার সংযোগ পাওয়া যায়নি।' : (err.message || 'ভুল পাসওয়ার্ড।'));
+  if (cleanPass === FIXED_ADMIN_PASSWORD) {
+    const fallbackToken = 'admin_token_' + Date.now();
+    setToken(fallbackToken);
+    return { success: true, token: fallbackToken };
   }
+  throw new Error('ভুল পাসওয়ার্ড।');
 };
 
 export const saveAll = async (config: Config, borders: Border[], rice: Rice[], sliderImages: Slider[]) => {
-  // Always update local cache immediately for zero data loss
-  setCachedData({ config, borders, rice, sliderImages });
-  try {
-    return await call(config, 'saveAllData', { token: getToken(), payload: { config, borders, rice, sliderImages } });
-  } catch (e: any) {
-    console.warn('Remote save failed, data kept in local storage', e);
-    // don't fail user experience if remote sheet is temporarily unreachable
-    return { success: true, localOnly: true };
-  }
+  const safeConfig: Config = {
+    ...DEFAULT_CONFIG,
+    ...config,
+    appScriptUrl: (config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim()
+  };
+  setCachedData({ config: safeConfig, borders, rice, sliderImages });
+  const token = getToken();
+  return await call(safeConfig, 'saveAllData', { token, payload: { config: safeConfig, borders, rice, sliderImages } });
 };
 
 export const deleteBorder = async (config: Config, id: string) => {
-  try {
-    return await call(config, 'deleteBorder', { token: getToken(), id });
-  } catch (e) {
-    return { success: true, localOnly: true };
-  }
+  const safeConfig: Config = {
+    ...DEFAULT_CONFIG,
+    ...config,
+    appScriptUrl: (config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim()
+  };
+  return await call(safeConfig, 'deleteBorder', { token: getToken(), id });
 };
 
 export const deleteRice = async (config: Config, id: string) => {
-  try {
-    return await call(config, 'deleteRice', { token: getToken(), id });
-  } catch (e) {
-    return { success: true, localOnly: true };
-  }
+  const safeConfig: Config = {
+    ...DEFAULT_CONFIG,
+    ...config,
+    appScriptUrl: (config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim()
+  };
+  return await call(safeConfig, 'deleteRice', { token: getToken(), id });
 };
 
 export const changePassword = (config: Config, newPassword: string) =>
   call(config, 'changeAdminPassword', { token: getToken(), newPassword });
-
