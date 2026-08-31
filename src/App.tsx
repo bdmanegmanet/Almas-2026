@@ -1079,7 +1079,7 @@ function Login({ config, onClose, onSuccess }: { config: Config; onClose: () => 
               setP(e.target.value);
               setErr('');
             }}
-            placeholder="পাসওয়ার্ড লিখুন (যেমন: 180665)"
+            placeholder="পাসওয়ার্ড লিখুন"
             autoFocus
           />
         </label>
