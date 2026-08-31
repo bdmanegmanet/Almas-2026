@@ -326,6 +326,11 @@ export function App() {
         </div>
 
         <table class="cardTable">
+          <colgroup>
+            <col style="width: 44%" />
+            <col style="width: 32%" />
+            <col style="width: 24%" />
+          </colgroup>
           <thead>
             <tr>
               <th>বিবরণ</th>
@@ -383,7 +388,7 @@ export function App() {
         </div>
 
         <div class="cardFooter">
-          <span>সফটওয়্যার ডেভেলপমেন্ট: <b>${config.developer || 'Ariful Islam'}</b></span>
+          <span>সফটওয়্যার ডেভেলপমেন্ট: <a href="https://www.facebook.com/mdarifulislam15" target="_blank" rel="noreferrer" style="color: #17324d; font-weight: 800; text-decoration: none;">মোঃ আরিফুল ইসলাম</a></span>
           <span>•</span>
           <span>আদর্শ আল মাস ছাত্রাবাস অটোমেশন সিস্টেম</span>
         </div>
@@ -426,6 +431,11 @@ export function App() {
         </div>
 
         <table class="cardTable">
+          <colgroup>
+            <col style="width: 44%" />
+            <col style="width: 32%" />
+            <col style="width: 24%" />
+          </colgroup>
           <thead>
             <tr>
               <th>বিবরণ</th>
@@ -478,7 +488,7 @@ export function App() {
         </div>
 
         <div class="cardFooter">
-          <span>সফটওয়্যার ডেভেলপমেন্ট: <b>${config.developer || 'Ariful Islam'}</b></span>
+          <span>সফটওয়্যার ডেভেলপমেন্ট: <a href="https://www.facebook.com/mdarifulislam15" target="_blank" rel="noreferrer" style="color: #17324d; font-weight: 800; text-decoration: none;">মোঃ আরিফুল ইসলাম</a></span>
           <span>•</span>
           <span>আদর্শ আল মাস ছাত্রাবাস অটোমেশন সিস্টেম</span>
         </div>
@@ -895,9 +905,9 @@ export function App() {
         )}
 
         <footer>
-          Developed by{' '}
-          <a href={config.developerFbUrl || 'https://www.facebook.com/mdarifulislam15'} target="_blank" rel="noreferrer">
-            {config.developer}
+          সফটওয়্যার ডেভেলপমেন্ট:{' '}
+          <a href="https://www.facebook.com/mdarifulislam15" target="_blank" rel="noreferrer">
+            মোঃ আরিফুল ইসলাম
           </a>
         </footer>
       </main>

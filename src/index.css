@@ -609,11 +609,12 @@ footer a:hover {
   position: fixed;
   left: -10000px;
   top: 0;
-  width: 720px;
+  width: 760px;
   padding: 24px;
   background: #ffffff;
   color: #183047;
   font-family: 'Noto Serif Bengali', serif;
+  box-sizing: border-box;
 }
 
 .cardBox {
@@ -622,6 +623,8 @@ footer a:hover {
   padding: 24px;
   background: #ffffff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .cardBoxRice {
@@ -711,9 +714,13 @@ footer a:hover {
 }
 
 .cardTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 18px;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+  margin-bottom: 20px !important;
+  box-sizing: border-box !important;
 }
 
 .cardTable th {
@@ -724,6 +731,9 @@ footer a:hover {
   font-weight: 700;
   text-align: left;
   border: 1px solid #17324d;
+  white-space: normal !important;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 
 .cardBoxRice .cardTable th {
@@ -737,10 +747,13 @@ footer a:hover {
   border: 1px solid #ded6c8;
   color: #223344;
   text-align: left;
+  white-space: normal !important;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 
 .cardTable .textRight {
-  text-align: right;
+  text-align: right !important;
 }
 
 .cardTable .fontBold {
@@ -748,14 +761,16 @@ footer a:hover {
   color: #17324d;
 }
 
-.cardTable .rowTotalCost {
-  background: #faf6ee;
-  font-weight: 700;
+.cardTable .rowTotalCost td {
+  background: #faf6ee !important;
+  font-weight: 800 !important;
+  color: #17324d !important;
 }
 
-.cardTable .rowDeposit {
-  background: #edf7f0;
-  font-weight: 700;
+.cardTable .rowDeposit td {
+  background: #edf7f0 !important;
+  font-weight: 800 !important;
+  color: #15803d !important;
 }
 
 .cardBalanceGrid {

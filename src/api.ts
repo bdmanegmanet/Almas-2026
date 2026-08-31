@@ -1,10 +1,13 @@
 import type { Data, Config, Border, Rice, Slider } from './types';
 
+export const FIXED_DEVELOPER_NAME = 'মোঃ আরিফুল ইসলাম';
+export const FIXED_DEVELOPER_FB_URL = 'https://www.facebook.com/mdarifulislam15';
+
 export const DEFAULT_CONFIG: Config = {
   hostelName: 'আদর্শ আল মাস ছাত্রাবাস',
   hostelAddress: '',
-  developer: 'মোঃ আরিফুল ইসলাম',
-  developerFbUrl: 'https://www.facebook.com/mdarifulislam15',
+  developer: FIXED_DEVELOPER_NAME,
+  developerFbUrl: FIXED_DEVELOPER_FB_URL,
   hostelLogoUrl: 'https://lh3.googleusercontent.com/d/1zO9JQySD2r05aBM7kpI2gVlMGl6zt-QC',
   currentMonth: '',
   currentYear: '',
@@ -153,6 +156,8 @@ export async function load(config: Config): Promise<{ data: Data }> {
           ...DEFAULT_CONFIG,
           ...config,
           ...rawConfig,
+          developer: FIXED_DEVELOPER_NAME,
+          developerFbUrl: FIXED_DEVELOPER_FB_URL,
           // Preserve valid appScriptUrl
           appScriptUrl: (rawConfig.appScriptUrl || config.appScriptUrl || DEFAULT_CONFIG.appScriptUrl).trim(),
           defaultMealRate: Number(rawConfig.defaultMealRate ?? config.defaultMealRate ?? DEFAULT_CONFIG.defaultMealRate)
