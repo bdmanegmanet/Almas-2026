@@ -1,11 +1,21 @@
-<div align="center">
+# আদর্শ আল মাস ছাত্রাবাস — Border Account v2
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+## Google Apps Script setup
+1. Google Sheets ID: `1_sOWw0y_PtlD_FnccVpvt5Pydm469fiIKDP5Fc5bOU4`
+2. Code.gs paste করুন।
+3. `setupSheets()` একবার Run করুন। এটি ঠিক ৩টি sheet বানাবে: `ওয়েবসাইট confi.`, `টাকার হিসাব`, `চালের হিসাব`।
+4. `setAdminPassword('আপনার-নিজস্ব-শক্তিশালী-পাসওয়ার্ড')` একবার Run করুন। কোনো default password নেই।
+5. Deploy > New deployment > Web app > Execute as Me > Anyone.
+6. Web app URL-টি ওয়েবসাইটের Admin Dashboard > Settings-এ দিন।
 
-  <h1>Built with AI Studio</h2>
+## Slider image
+Google Drive link বা সরাসরি `https://lh3.googleusercontent.com/d/IMAGE_ID` দিন। Code নিজেই Drive `/file/d/ID` কে এই format-এ রূপান্তর করে।
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Calculation
+মিল খরচ = মিল সংখ্যা × মিল রেট
+মোট খরচ = মিল খরচ + অতিরিক্ত + বিবিধ
+মোট খরচ > মোট জমা হলে ম্যানেজার পাবে = পার্থক্য
+অন্যথায় বর্ডার পাবে = পার্থক্য
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+## Frontend
+Noto Serif Bengali ব্যবহার করা হয়েছে। Public UI-তে settings/configuration নেই; এগুলো শুধু authenticated Admin Dashboard-এ।

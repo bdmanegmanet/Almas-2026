@@ -1,0 +1,6 @@
+{
+  "name": "আদর্শ আল মাস ছাত্রাবাস",
+  "description": "আদর্শ আল মাস ছাত্রাবাস - মেসের মিল, টাকা এবং চালের হিসাব ব্যবস্থাপনা সিস্টেম",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
